@@ -22,6 +22,8 @@ class LoginActivity : AppCompatActivity() {
 
         myAuth = FirebaseAuth.getInstance()
 
+        //Dá um reload para verificar se o usuário ainda existe
+        //Caso não exista mais, pede o login novamente
         myAuth.currentUser?.reload()
 
         if(myAuth.currentUser != null){
