@@ -16,7 +16,23 @@ class ResultActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         supportActionBar?.setDisplayShowHomeEnabled(true);
 
-        if(intent.extras == null){
+        val gasPrice = intent.extras?.getDouble("GAS_PRICE") ?: 1.0
+        val ethanolPrice = intent.extras?.getDouble("ETHANOL_PRICE") ?: 0.0
+        val gasAverage = intent.extras?.getDouble("GAS_AVERAGE") ?: 1.0
+        val ethanolAverage = intent.extras?.getDouble("ETHANOL_AVERAGE") ?: 0.0
+
+        var canCalculate = true
+
+
+        if(gasPrice == 0.0
+            || ethanolPrice == 0.0
+            || gasAverage == 0.0
+            || ethanolAverage == 0.0
+            || intent.extras == null){
+            canCalculate = false
+        }
+
+        if(canCalculate){
             Toast.makeText(
                 this,
                 "Não foi possível realizar a operação",
@@ -28,10 +44,10 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun calculate(){
-        val gasPrice = intent.extras?.getDouble("GAS_PRICE", 0.0) ?: 1.0
-        val ethanolPrice = intent.extras?.getDouble("ETHANOL_PRICE", 0.0) ?: 0.0
-        val gasAverage = intent.extras?.getDouble("GAS_AVERAGE", 0.0) ?: 1.0
-        val ethanolAverage = intent.extras?.getDouble("ETHANOL_AVERAGE", 0.0) ?: 0.0
+        val gasPrice = intent.extras?.getDouble("GAS_PRICE") ?: 1.0
+        val ethanolPrice = intent.extras?.getDouble("ETHANOL_PRICE") ?: 0.0
+        val gasAverage = intent.extras?.getDouble("GAS_AVERAGE") ?: 1.0
+        val ethanolAverage = intent.extras?.getDouble("ETHANOL_AVERAGE") ?: 0.0
 
         val performanceOfMyCar = ethanolAverage / gasAverage
         val priceOfFuelIndice = ethanolPrice / gasPrice
